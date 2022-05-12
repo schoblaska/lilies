@@ -37,6 +37,8 @@ function drawSplotch(p) {
     p0[1] + randInt(p.height / 2) - 200,
   ];
 
+  // TODO: the lower the position of the splotch, the darker its
+  // color is likely to be? (to create a rough 3d illusion)
   brush(p, [p0, p1], colorJitter(72, 102, 155, 10), randInt(150) + 50);
 }
 
