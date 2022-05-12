@@ -5,20 +5,24 @@ import './style.css'
 new p5(p5Instance => {
   const p = p5Instance;
 
-  var splotches = 0;
-  var waves = 0;
-
   p.setup = function setup() {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.background(colorJitter(72, 102, 155, 10))
   };
 
+  let wavesTarget = p.windowWidth * p.windowHeight / 5000;
+  let splotchesTarget = p.windowWidth * p.windowHeight / 30000;
+  var splotches = 0;
+  var waves = 0;
+
+  console.log(p.windowWidth, p.windowHeight)
+
   p.draw = function draw() {
     for(var i = 0; i < 5; i++) {
-      if (splotches < 20) {
+      if (splotches < splotchesTarget) {
         drawSplotch(p)
         splotches += 1
-      } else if (waves < 200) {
+      } else if (waves < wavesTarget) {
         drawWave(p)
         waves += 1
       }
