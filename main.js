@@ -11,7 +11,7 @@ new p5(p5Instance => {
   };
 
   let wavesTarget = p.windowWidth * p.windowHeight / 5000;
-  let splotchesTarget = p.windowWidth * p.windowHeight / 30000;
+  let splotchesTarget = p.windowWidth * p.windowHeight / 40000;
   var splotches = 0;
   var waves = 0;
 
@@ -41,13 +41,12 @@ function drawSplotch(p) {
 
 // draw a wavy blue line
 function drawWave(p) {
-  let p0 = [randInt(p.width - 50), randInt(p.height - 50)]
-  let p1 = [p0[0] + randInt(50) + 25, p0[1] - randInt(40) + 20]
-  let p2 = [p1[0] + randInt(50) + 25, p0[1] - randInt(40) + 20]
-  let p3 = [p2[0] + randInt(50) + 25, p0[1] - randInt(40) + 20]
-
+  let p0 = [randInt(p.width - 50), randInt(p.height)]
+  let p1 = [p0[0] + randInt(50) + 25, p0[1] - randInt(60) + 30]
+  let p2 = [p1[0] + randInt(50) + 25, p0[1] - randInt(60) + 30]
+  let p3 = [p2[0] + randInt(50) + 25, p0[1] - randInt(60) + 30]
     
-  brush(p, [p0, p1, p2, p3], colorJitter(46, 64, 112, 10), 5)
+  brush(p, [p0, p1, p2, p3], colorJitter(46, 64, 112, 10), 3)
 }
 
 // adapted from this post by Ahmad Moussa (@gorillasu):
@@ -99,7 +98,7 @@ function brush(p, coords, color, brushSize = 10) {
       p.stroke(color)
       p.strokeWeight(oldR + diff); // AMEND: oldR -> oldR+diff
       p.line(x + num, y + num, oldX + num, oldY + num);
-      p.strokeWeight(oldR); // ADD
+      p.strokeWeight(oldR + diff); // ADD
       p.line(
         x + diff * num2,
         y + diff * num2,
