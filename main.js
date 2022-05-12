@@ -44,7 +44,7 @@ function drawSplotch(p) {
 
 // draw a wavy blue line
 function drawWave(p) {
-  let p0 = [randInt(p.width - 50), randInt(p.height)];
+  let p0 = [randInt(p.width) - 50, randInt(p.height)];
   let p1 = [p0[0] + randInt(50) + 25, p0[1] - randInt(60) + 30];
   let p2 = [p1[0] + randInt(50) + 25, p0[1] - randInt(60) + 30];
   let p3 = [p2[0] + randInt(50) + 25, p0[1] - randInt(60) + 30];
