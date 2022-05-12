@@ -11,19 +11,19 @@ new p5((p5Instance) => {
     p.background(colorJitter(72, 102, 155, 10));
   };
 
-  let wavesTarget = (p.windowWidth * p.windowHeight) / 5000;
+  let ripplesTarget = (p.windowWidth * p.windowHeight) / 5000;
   let splotchesTarget = (p.windowWidth * p.windowHeight) / 40000;
   var splotches = 0;
-  var waves = 0;
+  var ripples = 0;
 
   p.draw = function draw() {
     for (var i = 0; i < 5; i++) {
       if (splotches < splotchesTarget) {
         drawSplotch(p);
         splotches += 1;
-      } else if (waves < wavesTarget) {
-        drawWave(p);
-        waves += 1;
+      } else if (ripples < ripplesTarget) {
+        drawRipple(p);
+        ripples += 1;
       }
     }
   };
@@ -43,11 +43,11 @@ function drawSplotch(p) {
 }
 
 // draw a wavy blue line
-function drawWave(p) {
+function drawRipple(p) {
   let p0 = [randInt(p.width) - 50, randInt(p.height)];
-  let p1 = [p0[0] + randInt(50) + 25, p0[1] - randInt(60) + 30];
-  let p2 = [p1[0] + randInt(50) + 25, p0[1] - randInt(60) + 30];
-  let p3 = [p2[0] + randInt(50) + 25, p0[1] - randInt(60) + 30];
+  let p1 = [p0[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
+  let p2 = [p1[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
+  let p3 = [p2[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
 
   brush(p, [p0, p1, p2, p3], colorJitter(46, 64, 112, 10), 3);
 }
