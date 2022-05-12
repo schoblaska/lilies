@@ -1,6 +1,6 @@
 import p5 from "p5";
 import brush from "./src/brush.js";
-import { colorJitter, clamp, randInt } from "./src/helpers.js"
+import { colorJitter, randInt } from "./src/helpers.js"
 import "./style.css";
 
 new p5((p5Instance) => {
