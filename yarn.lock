@@ -7,6 +7,11 @@ colorette@^1.2.2:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.2.tgz#cbcc79d5e99caea2dbf10eb3a26fd8b3e6acfa94"
   integrity sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==
 
+curve-interpolator@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/curve-interpolator/-/curve-interpolator-2.0.8.tgz#700106e9e9c2331349011178c6814148307491b1"
+  integrity sha512-2yzZLrzyysQe7BheosIOZqIsGGeQNYuZg9EBjem9V8VmKgEsiFrS7bN2+xd7CAeRLF8z+NlV5mq+Lo3bO2+tqA==
+
 esbuild@^0.12.8:
   version "0.12.14"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.14.tgz#43157dbd0b36d939247d4eb4909a4886ac40f82e"

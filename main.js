@@ -1,4 +1,5 @@
 import p5 from 'p5';
+import { CurveInterpolator } from 'curve-interpolator';
 import './style.css'
 
 new p5(p5Instance => {
@@ -14,7 +15,7 @@ new p5(p5Instance => {
 
   p.draw = function draw() {
     for(var i = 0; i < 5; i++) {
-      if (splotches < 50) {
+      if (splotches < 20) {
         drawSplotch(p)
         splotches += 1
       } else if (waves < 200) {
@@ -37,10 +38,12 @@ function drawSplotch(p) {
 // draw a wavy blue line
 function drawWave(p) {
   let p0 = [randInt(p.width - 50), randInt(p.height - 50)]
-  let p1 = [p0[0] + randInt(100) + 50, p0[1] + randInt(40) + 20]
-  let p2 = [p1[0] + randInt(100) + 50, p1[1] - randInt(80) - 20]
+  let p1 = [p0[0] + randInt(50) + 25, p0[1] - randInt(40) + 20]
+  let p2 = [p1[0] + randInt(50) + 25, p0[1] - randInt(40) + 20]
+  let p3 = [p2[0] + randInt(50) + 25, p0[1] - randInt(40) + 20]
+
     
-  brush(p, [p0, p1, p2], colorJitter(46, 64, 112, 10), 5)
+  brush(p, [p0, p1, p2, p3], colorJitter(46, 64, 112, 10), 5)
 }
 
 // adapted from this post by Ahmad Moussa (@gorillasu):
@@ -57,10 +60,13 @@ function brush(p, coords, color, brushSize = 10) {
   let splitNum = 100;
   let diff = brushSize / 2;
 
-  var x = coords[0][0];
-  var y = coords[0][1];
+  const interp = new CurveInterpolator(coords, { tension: 0.2 });
 
-  coords.forEach((pair) => {
+  let points = interp.getPoints(10)
+  var x = points[0][0];
+  var y = points[0][1];
+
+  points.forEach((pair) => {
     let mouseX = pair[0]
     let mouseY = pair[1]
     vx += (mouseX - x) * spring;

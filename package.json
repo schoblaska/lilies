@@ -10,6 +10,7 @@
     "vite": "^2.3.8"
   },
   "dependencies": {
+    "curve-interpolator": "^2.0.8",
     "p5": "^1.4.1"
   }
 }
