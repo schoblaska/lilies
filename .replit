@@ -1,0 +1,3 @@
+language="nodejs"
+run="yarn dev"
+entrypoint="main.js"
