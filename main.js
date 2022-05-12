@@ -24,6 +24,12 @@ new p5((p5Instance) => {
       } else if (ripples < ripplesTarget) {
         drawRipple(p);
         ripples += 1;
+      } else {
+        // TODO: draw lillies
+        //       - decide how many lillies to draw based on res
+        //       - generate lines for each lily, put into an array
+        //       - draw n random lines (drawing in order for each individual lily)
+        //       - repeat until all lines drawn
       }
     }
   };
