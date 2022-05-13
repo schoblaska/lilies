@@ -3,16 +3,24 @@ import brush from "./src/brush.js";
 import { colorJitter, randInt } from "./src/helpers.js"
 import "./style.css";
 
+const config = {
+  backgroundColor: [72, 102, 155],
+  splotchColor: [72, 102, 155],
+  rippleColor: [46, 64, 112],
+  rippleDensity: 5000,
+  splotchDensity: 40000
+}
+
 new p5((p5Instance) => {
   const p = p5Instance;
 
   p.setup = function setup() {
     p.createCanvas(p.windowWidth, p.windowHeight);
-    p.background(colorJitter(72, 102, 155, 10));
+    p.background(colorJitter(...config.backgroundColor, 10));
   };
 
-  let ripplesTarget = (p.windowWidth * p.windowHeight) / 5000;
-  let splotchesTarget = (p.windowWidth * p.windowHeight) / 40000;
+  let ripplesTarget = (p.windowWidth * p.windowHeight) / config.rippleDensity;
+  let splotchesTarget = (p.windowWidth * p.windowHeight) / config.splotchDensity;
   var splotches = 0;
   var ripples = 0;
 
@@ -45,7 +53,7 @@ function drawSplotch(p) {
 
   // TODO: the lower the position of the splotch, the darker its
   // color is likely to be? (to create a rough 3d illusion)
-  brush(p, [p0, p1], colorJitter(72, 102, 155, 10), randInt(150) + 50);
+  brush(p, [p0, p1], colorJitter(...config.splotchColor, 10), randInt(150) + 50);
 }
 
 // draw a wavy blue line
@@ -55,5 +63,5 @@ function drawRipple(p) {
   let p2 = [p1[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
   let p3 = [p2[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
 
-  brush(p, [p0, p1, p2, p3], colorJitter(46, 64, 112, 10), 3);
+  brush(p, [p0, p1, p2, p3], colorJitter(...config.rippleColor, 10), 3);
 }
