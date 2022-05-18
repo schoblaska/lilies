@@ -1,6 +1,6 @@
 import p5 from "p5";
 import brush from "./src/brush.js";
-import { colorJitter, randInt } from "./src/helpers.js"
+import { colorJitter, randInt } from "./src/helpers.js";
 import "./style.css";
 
 const config = {
@@ -8,24 +8,25 @@ const config = {
   splotchColor: [72, 102, 155],
   rippleColor: [46, 64, 112],
   rippleDensity: 5000, // smaller number == more ripples
-  splotchDensity: 40000
-}
+  splotchDensity: 40000,
+};
 
 new p5((p5Instance) => {
   const p = p5Instance;
-  const instructions = p.createDiv('click to make a lilly grow')
+  const instructions = p.createDiv("click to make a lilly grow");
 
   p.setup = function setup() {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.background(colorJitter(...config.backgroundColor, 10));
-    instructions.id("instructions")
+    instructions.id("instructions");
   };
 
   const ripplesTarget = (p.windowWidth * p.windowHeight) / config.rippleDensity;
-  const splotchesTarget = (p.windowWidth * p.windowHeight) / config.splotchDensity;
+  const splotchesTarget =
+    (p.windowWidth * p.windowHeight) / config.splotchDensity;
   var ripplesCount = 0;
   var splotchesCount = 0;
-  var lillies = []
+  var lillies = [];
 
   p.draw = function draw() {
     for (var i = 0; i < 5; i++) {
@@ -41,7 +42,7 @@ new p5((p5Instance) => {
         } else {
           instructions.hide();
         }
-        
+
         // TODO: draw lillies
         //       - decide how many lillies to draw based on res
         //       - generate lines for each lily, put into an array
@@ -54,9 +55,9 @@ new p5((p5Instance) => {
   p.mousePressed = function mousePressed() {
     lillies.push({
       x: p.mouseX,
-      y: p.mouseY
+      y: p.mouseY,
     });
-    console.log("click", p.mouseX, p.mouseY)
+    console.log("click", p.mouseX, p.mouseY);
   };
 }, document.getElementById("app"));
 
@@ -70,7 +71,12 @@ function drawSplotch(p) {
 
   // TODO: the lower the position of the splotch, the darker its
   // color is likely to be? (to create a rough 3d illusion)
-  brush(p, [p0, p1], colorJitter(...config.splotchColor, 10), randInt(150) + 50);
+  brush(
+    p,
+    [p0, p1],
+    colorJitter(...config.splotchColor, 10),
+    randInt(150) + 50
+  );
 }
 
 // draw a wavy blue line
