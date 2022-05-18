@@ -7,6 +7,16 @@ const config = {
   backgroundColor: [72, 102, 155], // RGB
   splotchColor: [72, 102, 155],
   rippleColor: [46, 64, 112],
+  lillyColors: {
+    pads: [
+      [159, 204, 179],
+      [196, 223, 155],
+      [151, 206, 217],
+      [168, 177, 220],
+    ],
+    highlight: [217, 228, 245],
+    shadow: [40, 50, 88],
+  },
   rippleDensity: 5000, // smaller number == more ripples
   splotchDensity: 40000,
 };
@@ -29,35 +39,28 @@ new p5((p5Instance) => {
   var lillies = [];
 
   p.draw = function draw() {
-    for (var i = 0; i < 5; i++) {
-      if (splotchesCount < splotchesTarget) {
+    if (splotchesCount < splotchesTarget) {
+      for (var i = 0; i < 5; i++) {
         drawSplotch(p);
         splotchesCount += 1;
-      } else if (ripplesCount < ripplesTarget) {
+      }
+    } else if (ripplesCount < ripplesTarget) {
+      for (var i = 0; i < 5; i++) {
         drawRipple(p);
         ripplesCount += 1;
+      }
+    } else {
+      if (lillies.length === 0) {
+        instructions.show();
       } else {
-        if (lillies.length === 0) {
-          instructions.show();
-        } else {
-          instructions.hide();
-        }
-
-        // TODO: draw lillies
-        //       - decide how many lillies to draw based on res
-        //       - generate lines for each lily, put into an array
-        //       - draw n random lines (drawing in order for each individual lily)
-        //       - repeat until all lines drawn
+        instructions.hide();
+        drawLillyLine(lillies, p);
       }
     }
   };
 
   p.mousePressed = function mousePressed() {
-    lillies.push({
-      x: p.mouseX,
-      y: p.mouseY,
-    });
-    console.log("click", p.mouseX, p.mouseY);
+    addLilly(lillies, p.mouseX, p.mouseY);
   };
 }, document.getElementById("app"));
 
@@ -87,4 +90,51 @@ function drawRipple(p) {
   const p3 = [p2[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
 
   brush(p, [p0, p1, p2, p3], colorJitter(...config.rippleColor, 10), 3);
+}
+
+function addLilly(lillies, x, y) {
+  const padColor =
+    config.lillyColors.pads[randInt(config.lillyColors.pads.length)];
+
+  lillies.push({
+    x,
+    y,
+    lines: [
+      {
+        color: padColor,
+        points: [
+          [x - 50, y],
+          [x, y + 25],
+          [x + 50, y - 20],
+        ],
+      },
+      {
+        color: padColor,
+        points: [
+          [x - 50, y],
+          [x, y - 25],
+          [x + 50, y + 20],
+        ],
+      },
+      {
+        color: padColor,
+        points: [
+          [x - 50, y],
+          [x, y],
+          [x + 50, y],
+        ],
+      },
+    ],
+    drawn: 0,
+  });
+}
+
+function drawLillyLine(lillies, p) {
+  let lilly = lillies.find((l) => l.lines.length > l.drawn);
+
+  if (lilly) {
+    const line = lilly.lines[lilly.drawn];
+    brush(p, line.points, colorJitter(...line.color, 20), 5);
+    lilly.drawn += 1;
+  }
 }
