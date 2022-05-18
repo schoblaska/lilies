@@ -13,26 +13,35 @@ const config = {
 
 new p5((p5Instance) => {
   const p = p5Instance;
+  const instructions = p.createDiv('click to make a lilly grow')
 
   p.setup = function setup() {
     p.createCanvas(p.windowWidth, p.windowHeight);
     p.background(colorJitter(...config.backgroundColor, 10));
+    instructions.id("instructions")
   };
 
   const ripplesTarget = (p.windowWidth * p.windowHeight) / config.rippleDensity;
   const splotchesTarget = (p.windowWidth * p.windowHeight) / config.splotchDensity;
-  var splotches = 0;
-  var ripples = 0;
+  var ripplesCount = 0;
+  var splotchesCount = 0;
+  var lillies = []
 
   p.draw = function draw() {
     for (var i = 0; i < 5; i++) {
-      if (splotches < splotchesTarget) {
+      if (splotchesCount < splotchesTarget) {
         drawSplotch(p);
-        splotches += 1;
-      } else if (ripples < ripplesTarget) {
+        splotchesCount += 1;
+      } else if (ripplesCount < ripplesTarget) {
         drawRipple(p);
-        ripples += 1;
+        ripplesCount += 1;
       } else {
+        if (lillies.length === 0) {
+          instructions.show();
+        } else {
+          instructions.hide();
+        }
+        
         // TODO: draw lillies
         //       - decide how many lillies to draw based on res
         //       - generate lines for each lily, put into an array
@@ -43,6 +52,10 @@ new p5((p5Instance) => {
   };
 
   p.mousePressed = function mousePressed() {
+    lillies.push({
+      x: p.mouseX,
+      y: p.mouseY
+    });
     console.log("click", p.mouseX, p.mouseY)
   };
 }, document.getElementById("app"));
