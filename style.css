@@ -5,14 +5,18 @@ body {
 }
 
 div#instructions {
-  z-index: 100;
   color: #c4e49e;
   font-family: "Courgette";
   font-size: 2em;
+
   position: absolute;
+  margin: auto;
+  height: 20px;
+  top: 0;
+  bottom: 0;
   width: 100%;
   text-align: center;
-  bottom: 100px;
+
   display: none;
   opacity: 0.7;
   animation-name: fadeInOpacity;
