@@ -4,10 +4,10 @@ import { colorJitter, randInt } from "./src/helpers.js"
 import "./style.css";
 
 const config = {
-  backgroundColor: [72, 102, 155],
+  backgroundColor: [72, 102, 155], // RGB
   splotchColor: [72, 102, 155],
   rippleColor: [46, 64, 112],
-  rippleDensity: 5000,
+  rippleDensity: 5000, // smaller number == more ripples
   splotchDensity: 40000
 }
 
@@ -19,8 +19,8 @@ new p5((p5Instance) => {
     p.background(colorJitter(...config.backgroundColor, 10));
   };
 
-  let ripplesTarget = (p.windowWidth * p.windowHeight) / config.rippleDensity;
-  let splotchesTarget = (p.windowWidth * p.windowHeight) / config.splotchDensity;
+  const ripplesTarget = (p.windowWidth * p.windowHeight) / config.rippleDensity;
+  const splotchesTarget = (p.windowWidth * p.windowHeight) / config.splotchDensity;
   var splotches = 0;
   var ripples = 0;
 
@@ -41,12 +41,16 @@ new p5((p5Instance) => {
       }
     }
   };
+
+  p.mousePressed = function mousePressed() {
+    console.log("click", p.mouseX, p.mouseY)
+  };
 }, document.getElementById("app"));
 
 // draw a splotch
 function drawSplotch(p) {
-  let p0 = [randInt(p.width), randInt(p.height)];
-  let p1 = [
+  const p0 = [randInt(p.width), randInt(p.height)];
+  const p1 = [
     p0[0] + randInt(p.width / 2) - 200,
     p0[1] + randInt(p.height / 2) - 200,
   ];
@@ -58,10 +62,10 @@ function drawSplotch(p) {
 
 // draw a wavy blue line
 function drawRipple(p) {
-  let p0 = [randInt(p.width) - 50, randInt(p.height)];
-  let p1 = [p0[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
-  let p2 = [p1[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
-  let p3 = [p2[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
+  const p0 = [randInt(p.width) - 50, randInt(p.height)];
+  const p1 = [p0[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
+  const p2 = [p1[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
+  const p3 = [p2[0] + randInt(30) + 15, p0[1] - randInt(60) + 30];
 
   brush(p, [p0, p1, p2, p3], colorJitter(...config.rippleColor, 10), 3);
 }
