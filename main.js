@@ -95,10 +95,13 @@ function drawRipple(p) {
 function addLilly(lillies, x, y) {
   const padColor =
     config.lillyColors.pads[randInt(config.lillyColors.pads.length)];
-  // TODO: Rather than random, choose this based on which quadrant (divide into 3x3 grid or something) it's in. This will create grouped lillies of similar (but still different, thanks to jitter) colors
+  // TODO: Rather than random, choose this based on which quadrant (divide into
+  // 3x3 grid or something) it's in. This will create grouped lillies of
+  // similar (but still different, thanks to jitter) colors
   // or use same color as closest pad if within 100 pixels or something
   // or weight the randomness based on nearby pads (I like this idea best)
-  // maybe simpler: 2/3 chance of having the same color as the most commonly-used within 100px; 1/3 chance of random
+  // maybe simpler: 2/3 chance of having the same color as the most
+  // commonly-used within 100px; 1/3 chance of random
 
   // TODO: only push lilly if splotches and ripples have been drawn
   lillies.push({
