@@ -74,6 +74,8 @@ function drawSplotch(p) {
 
   // TODO: the lower the position of the splotch, the darker its
   // color is likely to be? (to create a rough 3d illusion)
+
+  // TODO: randomly draw either dark blue or dark green splotches
   brush(
     p,
     [p0, p1],
