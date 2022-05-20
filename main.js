@@ -5,7 +5,10 @@ import "./style.css";
 
 const config = {
   backgroundColor: [72, 102, 155], // RGB
-  splotchColor: [72, 102, 155],
+  splotchColors: [
+    [72, 102, 155],
+    [72, 125, 155]
+  ],
   rippleColor: [46, 64, 112],
   lillyColors: {
     pads: [
@@ -71,15 +74,16 @@ function drawSplotch(p) {
     p0[0] + randInt(p.width / 2) - 200,
     p0[1] + randInt(p.height / 2) - 200,
   ];
+  const color =
+    config.splotchColors[randInt(config.splotchColors.length)];
 
   // TODO: the lower the position of the splotch, the darker its
   // color is likely to be? (to create a rough 3d illusion)
 
-  // TODO: randomly draw either dark blue or dark green splotches
   brush(
     p,
     [p0, p1],
-    colorJitter(...config.splotchColor, 10),
+    colorJitter(...color, 10),
     randInt(150) + 50
   );
 }
