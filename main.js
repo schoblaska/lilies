@@ -63,7 +63,7 @@ new p5((p5Instance) => {
         instructions.show();
       } else {
         instructions.hide();
-        drawLillyLine(lillies, p);
+        drawLillyLines(lillies, p);
       }
     }
   };
@@ -173,14 +173,14 @@ function addLilly(lillies, x, y) {
   });
 }
 
-function drawLillyLine(lillies, p) {
-  let lilly = lillies.find((l) => l.lines.length > l.drawn);
-
-  if (lilly) {
-    const line = lilly.lines[lilly.drawn];
-    brush(p, line.points, line.color, 5, 25);
-    lilly.drawn += 1;
-  }
+function drawLillyLines(lillies, p) {
+  lillies.forEach((lily) => {
+    if (lily.lines.length > lily.drawn) {
+      const line = lily.lines[lily.drawn];
+      brush(p, line.points, line.color, 5, 25);
+      lily.drawn += 1;
+    }
+  });
 }
 
 function spiral(x, y, size = 50, n = 5, origin = 0) {
