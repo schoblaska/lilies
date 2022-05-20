@@ -1,4 +1,4 @@
-import { CurveInterpolator } from 'curve-interpolator';
+import { CurveInterpolator } from "curve-interpolator";
 
 // adapted from this post by Ahmad Moussa (@gorillasu):
 // https://gorillasun.de/blog/simulating-brush-strokes-with-hooke's-law-in-p5js-and-processing
@@ -17,13 +17,13 @@ export default function brush(p, coords, color, brushSize = 10) {
 
   const interp = new CurveInterpolator(coords, { tension: 0.2 });
 
-  let points = interp.getPoints(10)
+  let points = interp.getPoints(10);
   var x = points[0][0];
   var y = points[0][1];
 
   points.forEach((pair) => {
-    let mouseX = pair[0]
-    let mouseY = pair[1]
+    let mouseX = pair[0];
+    let mouseY = pair[1];
     vx += (mouseX - x) * spring;
     vy += (mouseY - y) * spring;
     vx *= friction;
@@ -47,7 +47,7 @@ export default function brush(p, coords, color, brushSize = 10) {
       if (oldR < 1) {
         oldR = 1;
       }
-      p.stroke(color)
+      p.stroke(color);
       p.strokeWeight(oldR + diff); // AMEND: oldR -> oldR+diff
       p.line(x + num, y + num, oldX + num, oldY + num);
       p.strokeWeight(oldR + diff); // ADD

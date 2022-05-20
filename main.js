@@ -1,13 +1,13 @@
 import p5 from "p5";
 import brush from "./src/brush.js";
-import { colorJitter, randInt } from "./src/helpers.js";
+import { colorJitter, randInt, shuffleArray } from "./src/helpers.js";
 import "./style.css";
 
 const config = {
   backgroundColor: [72, 102, 155], // RGB
   splotchColors: [
     [72, 102, 155],
-    [72, 125, 155]
+    [72, 125, 155],
   ],
   rippleColor: [46, 64, 112],
   lillyColors: {
@@ -74,18 +74,12 @@ function drawSplotch(p) {
     p0[0] + randInt(p.width / 2) - 200,
     p0[1] + randInt(p.height / 2) - 200,
   ];
-  const color =
-    config.splotchColors[randInt(config.splotchColors.length)];
+  const color = config.splotchColors[randInt(config.splotchColors.length)];
 
   // TODO: the lower the position of the splotch, the darker its
   // color is likely to be? (to create a rough 3d illusion)
 
-  brush(
-    p,
-    [p0, p1],
-    colorJitter(...color, 10),
-    randInt(150) + 50
-  );
+  brush(p, [p0, p1], colorJitter(...color, 10), randInt(150) + 50);
 }
 
 // draw a wavy blue line
@@ -99,46 +93,37 @@ function drawRipple(p) {
 }
 
 function addLilly(lillies, x, y) {
-  const padColor =
-    config.lillyColors.pads[randInt(config.lillyColors.pads.length)];
-  // TODO: Rather than random, choose this based on which quadrant (divide into
+  // TODO: return early unless splotches and ripples have been drawn
+
+  // TODO: Rather than random, choose color based on which quadrant (divide into
   // 3x3 grid or something) it's in. This will create grouped lillies of
   // similar (but still different, thanks to jitter) colors
   // or use same color as closest pad if within 100 pixels or something
   // or weight the randomness based on nearby pads (I like this idea best)
   // maybe simpler: 2/3 chance of having the same color as the most
   // commonly-used within 100px; 1/3 chance of random
+  const padColor =
+    config.lillyColors.pads[randInt(config.lillyColors.pads.length)];
 
-  // TODO: only push lilly if splotches and ripples have been drawn
+  var lines = [];
+
+  for (var i = 0; i <= 15; i++) {
+    lines.push({
+      color: padColor,
+      points: shuffleArray([
+        [x - 50 - randInt(10), y - 5 + randInt(10)],
+        [x + 50 + randInt(10), y - 5 + randInt(10)],
+        [x - 5 + randInt(10), y - 25 - randInt(10)],
+        [x - 5 + randInt(10), y + 25 + randInt(10)],
+        [x - 5 + randInt(10), y - 5 + randInt(10)],
+      ]).slice(0, 4),
+    });
+  }
+
   lillies.push({
     x,
     y,
-    lines: [
-      {
-        color: padColor,
-        points: [
-          [x - 50, y],
-          [x, y + 25],
-          [x + 50, y - 20],
-        ],
-      },
-      {
-        color: padColor,
-        points: [
-          [x - 50, y],
-          [x, y - 25],
-          [x + 50, y + 20],
-        ],
-      },
-      {
-        color: padColor,
-        points: [
-          [x - 50, y],
-          [x, y],
-          [x + 50, y],
-        ],
-      },
-    ],
+    lines: lines,
     drawn: 0,
   });
 }
