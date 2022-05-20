@@ -152,9 +152,9 @@ function drawLillyLine(lillies, p) {
 function spiral(x, y, size = 50, n = 5, origin = 0) {
   const funcs = [
     (size) => [x - size - randInt(20), y - 10 + randInt(20)],
-    (size) => [x - 10 + randInt(20), y + size / 3 + randInt(20)],
+    (size) => [x - 10 + randInt(20), y + size / 4 + randInt(20)],
     (size) => [x + size + randInt(20), y - 10 + randInt(20)],
-    (size) => [x - 10 + randInt(20), y - size / 3 - randInt(20)],
+    (size) => [x - 10 + randInt(20), y - size / 4 - randInt(20)],
   ];
 
   var points = [];
