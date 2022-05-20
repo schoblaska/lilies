@@ -107,16 +107,27 @@ function addLilly(lillies, x, y) {
 
   var lines = [];
 
-  for (var i = 0; i <= 15; i++) {
+  // tiny spirals to fill the hole in the middle of the pad
+  for (var i = 0; i <= 2; i++) {
     lines.push({
       color: padColor,
-      points: shuffleArray([
-        [x - 50 - randInt(10), y - 5 + randInt(10)],
-        [x + 50 + randInt(10), y - 5 + randInt(10)],
-        [x - 5 + randInt(10), y - 25 - randInt(10)],
-        [x - 5 + randInt(10), y + 25 + randInt(10)],
-        [x - 5 + randInt(10), y - 5 + randInt(10)],
-      ]).slice(0, 4),
+      points: spiral(x, y, 5, 5, i),
+    });
+  }
+
+  // big spirals to define the shape of the pad
+  for (var i = 0; i <= 4; i++) {
+    lines.push({
+      color: padColor,
+      points: spiral(x, y, 40, 5, i),
+    });
+  }
+
+  // tighter spirals to fill it in
+  for (var i = 0; i <= 4; i++) {
+    lines.push({
+      color: padColor,
+      points: spiral(x, y, 20, 5, i),
     });
   }
 
@@ -133,7 +144,24 @@ function drawLillyLine(lillies, p) {
 
   if (lilly) {
     const line = lilly.lines[lilly.drawn];
-    brush(p, line.points, colorJitter(...line.color, 20), 5, 10);
+    brush(p, line.points, colorJitter(...line.color, 20), 5, 25);
     lilly.drawn += 1;
   }
+}
+
+function spiral(x, y, size = 50, n = 5, origin = 0) {
+  const funcs = [
+    (size) => [x - size - randInt(20), y - 10 + randInt(20)],
+    (size) => [x - 10 + randInt(20), y + size / 3 + randInt(20)],
+    (size) => [x + size + randInt(20), y - 10 + randInt(20)],
+    (size) => [x - 10 + randInt(20), y - size / 3 - randInt(20)],
+  ];
+
+  var points = [];
+
+  for (var i = 0; i < n; i++) {
+    points.push(funcs[(i + origin) % 4](i === 0 ? size / 2 : size));
+  }
+
+  return points;
 }
