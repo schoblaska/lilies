@@ -107,6 +107,12 @@ function addLilly(lillies, x, y) {
 
   var lines = [];
 
+  // shadow
+  lines.push({
+    color: config.rippleColor,
+    points: spiral(x + 10, y + 10, 40, 3, 0),
+  });
+
   // tiny spirals to fill the hole in the middle of the pad
   for (var i = 0; i <= 2; i++) {
     lines.push({
