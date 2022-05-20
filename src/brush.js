@@ -5,7 +5,7 @@ import { CurveInterpolator } from "curve-interpolator";
 // which was adapted from this post by @BUN_information:
 // https://twitter.com/BUN_information/status/1195300719231791104
 
-export default function brush(p, coords, color, brushSize = 10) {
+export default function brush(p, coords, color, brushSize = 10, interpPoints = 10) {
   let spring = 0.3;
   let friction = 0.45;
   let v = 0.5;
@@ -17,7 +17,7 @@ export default function brush(p, coords, color, brushSize = 10) {
 
   const interp = new CurveInterpolator(coords, { tension: 0.2 });
 
-  let points = interp.getPoints(10);
+  let points = interp.getPoints(interpPoints);
   var x = points[0][0];
   var y = points[0][1];
 

@@ -133,7 +133,7 @@ function drawLillyLine(lillies, p) {
 
   if (lilly) {
     const line = lilly.lines[lilly.drawn];
-    brush(p, line.points, colorJitter(...line.color, 20), 5);
+    brush(p, line.points, colorJitter(...line.color, 20), 5, 10);
     lilly.drawn += 1;
   }
 }
