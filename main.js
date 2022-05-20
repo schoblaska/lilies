@@ -10,7 +10,7 @@ const config = {
     [72, 125, 155],
   ],
   rippleColor: [46, 64, 112],
-  lillyColors: {
+  lilyColors: {
     pads: [
       [159, 204, 179],
       [196, 223, 155],
@@ -32,7 +32,7 @@ const config = {
 
 new p5((p5Instance) => {
   const p = p5Instance;
-  const instructions = p.createDiv("click to make a lilly grow");
+  const instructions = p.createDiv("click to make a lily grow");
 
   p.setup = function setup() {
     p.createCanvas(p.windowWidth, p.windowHeight);
@@ -63,13 +63,13 @@ new p5((p5Instance) => {
         instructions.show();
       } else {
         instructions.hide();
-        drawLillyLines(lillies, p);
+        drawLilyLines(lillies, p);
       }
     }
   };
 
   p.mousePressed = function mousePressed() {
-    addLilly(lillies, p.mouseX, p.mouseY);
+    addLily(lillies, p.mouseX, p.mouseY);
   };
 }, document.getElementById("app"));
 
@@ -98,7 +98,7 @@ function drawRipple(p) {
   brush(p, [p0, p1, p2, p3], colorJitter(...config.rippleColor, 10), 3);
 }
 
-function addLilly(lillies, x, y) {
+function addLily(lillies, x, y) {
   // TODO: return early unless splotches and ripples have been drawn
 
   // TODO: Rather than random, choose color based on which quadrant (divide into
@@ -109,13 +109,13 @@ function addLilly(lillies, x, y) {
   // maybe simpler: 2/3 chance of having the same color as the most
   // commonly-used within 100px; 1/3 chance of random
   const padColor =
-    config.lillyColors.pads[randInt(config.lillyColors.pads.length)];
+    config.lilyColors.pads[randInt(config.lilyColors.pads.length)];
 
   var lines = [];
 
   // shadow
   lines.push({
-    color: colorJitter(...config.lillyColors.shadow, 20),
+    color: colorJitter(...config.lilyColors.shadow, 20),
     points: spiral(x + 10, y + 10, 40, 3, 0),
   });
 
@@ -137,7 +137,7 @@ function addLilly(lillies, x, y) {
 
   // highlight
   lines.push({
-    color: colorJitter(...config.lillyColors.highlight, 20),
+    color: colorJitter(...config.lilyColors.highlight, 20),
     points: spiral(x, y, 40, 4, 2),
   });
 
@@ -151,7 +151,7 @@ function addLilly(lillies, x, y) {
 
   if (randInt(config.flowerFactor) == 0) {
     const flowerColor =
-      config.lillyColors.flowers[randInt(config.lillyColors.flowers.length)];
+      config.lilyColors.flowers[randInt(config.lilyColors.flowers.length)];
 
     for (var i = 0; i <= 4; i++) {
       lines.push({
@@ -173,7 +173,7 @@ function addLilly(lillies, x, y) {
   });
 }
 
-function drawLillyLines(lillies, p) {
+function drawLilyLines(lillies, p) {
   lillies.forEach((lily) => {
     if (lily.lines.length > lily.drawn) {
       const line = lily.lines[lily.drawn];
