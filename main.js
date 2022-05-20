@@ -109,14 +109,14 @@ function addLilly(lillies, x, y) {
 
   // shadow
   lines.push({
-    color: config.rippleColor,
+    color: colorJitter(...config.lillyColors.shadow, 20),
     points: spiral(x + 10, y + 10, 40, 3, 0),
   });
 
   // tiny spirals to fill the hole in the middle of the pad
   for (var i = 0; i <= 2; i++) {
     lines.push({
-      color: padColor,
+      color: colorJitter(...padColor, 20),
       points: spiral(x, y, 5, 5, i),
     });
   }
@@ -124,15 +124,21 @@ function addLilly(lillies, x, y) {
   // big spirals to define the shape of the pad
   for (var i = 0; i <= 4; i++) {
     lines.push({
-      color: padColor,
+      color: colorJitter(...padColor, 20),
       points: spiral(x, y, 40, 5, i),
     });
   }
 
+  // highlight
+  lines.push({
+    color: colorJitter(...config.lillyColors.highlight, 20),
+    points: spiral(x, y, 40, 4, 2),
+  });
+
   // tighter spirals to fill it in
   for (var i = 0; i <= 4; i++) {
     lines.push({
-      color: padColor,
+      color: colorJitter(...padColor, 20),
       points: spiral(x, y, 20, 5, i),
     });
   }
@@ -150,7 +156,7 @@ function drawLillyLine(lillies, p) {
 
   if (lilly) {
     const line = lilly.lines[lilly.drawn];
-    brush(p, line.points, colorJitter(...line.color, 20), 5, 25);
+    brush(p, line.points, line.color, 5, 25);
     lilly.drawn += 1;
   }
 }
