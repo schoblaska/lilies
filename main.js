@@ -17,11 +17,18 @@ const config = {
       [151, 206, 217],
       [168, 177, 220],
     ],
+    flowers: [
+      [200, 55, 61],
+      [232, 221, 63],
+      [234, 117, 55],
+      [217, 228, 245],
+    ],
     highlight: [217, 228, 245],
     shadow: [40, 50, 88],
   },
   rippleDensity: 5000, // smaller number == more ripples
   splotchDensity: 40000,
+  flowerFactor: 3, // 1/flowerFactor pads will have flowers
 };
 
 new p5((p5Instance) => {
@@ -141,6 +148,22 @@ function addLilly(lillies, x, y) {
       color: colorJitter(...padColor, 20),
       points: spiral(x, y, 20, 5, i),
     });
+  }
+
+  if (randInt(config.flowerFactor) == 0) {
+    const flowerColor =
+      config.lillyColors.flowers[randInt(config.lillyColors.flowers.length)];
+
+    for (var i = 0; i <= 4; i++) {
+      lines.push({
+        color: colorJitter(...flowerColor, 20),
+        points: [
+          [x, y],
+          [x - 10 + randInt(20), y - randInt(15)],
+          [x - 20 + randInt(40), y - 15 - randInt(15)],
+        ],
+      });
+    }
   }
 
   lillies.push({
