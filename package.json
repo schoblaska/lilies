@@ -7,7 +7,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "vite": "^2.3.8"
+    "vite": "^2.3"
   },
   "dependencies": {
     "curve-interpolator": "^2.0.8",
