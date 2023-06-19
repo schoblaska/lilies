@@ -32,7 +32,7 @@ const config = {
 
 new p5((p5Instance) => {
   const p = p5Instance;
-  const instructions = p.createDiv("click to make a lily grow");
+  const instructions = p.createDiv("click");
 
   p.setup = function setup() {
     p.createCanvas(p.windowWidth, p.windowHeight);
